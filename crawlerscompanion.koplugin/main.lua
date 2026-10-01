@@ -42,6 +42,32 @@ function Companion:init()
     end
 end
 
+-- Once the document is open: say in the log where the plugin thinks the reader is, which
+-- is the one thing worth checking on a new device. With CRAWLERS_COMPANION_SELFTEST set to
+-- a name, also run that lookup and log what the popup would say — the way to test the real
+-- data path on a desktop build with no screen to look at.
+function Companion:onReaderReady()
+    local p = self:currentPosition()
+    if p then
+        logger.info("crawlerscompanion: position", p.source, p.title, position.stamp(p.book, p.chapter), p.frontier)
+    else
+        logger.info("crawlerscompanion: no position for", self.ui.doc_props and self.ui.doc_props.title)
+    end
+    local probe = os.getenv("CRAWLERS_COMPANION_SELFTEST")
+    if probe and probe ~= "" then
+        local index = self.store:load_index()
+        local hits = p and index and gate.match(probe, index.entries, p.frontier) or {}
+        logger.info("crawlerscompanion: selftest", probe, "hits", #hits)
+        for i, e in ipairs(hits) do
+            logger.info("crawlerscompanion: selftest hit", i, e.id, e.name)
+        end
+        if hits[1] then
+            local file = self.store:entity(hits[1].id)
+            logger.info("crawlerscompanion: selftest text\n" .. gate.popup_text(hits[1], file, p.frontier, gate.LIMIT))
+        end
+    end
+end
+
 -- Where the reader is: an override they typed for this document, or the book and chapter
 -- read off the title and the table of contents. nil when neither gives a crawl book.
 function Companion:currentPosition()
