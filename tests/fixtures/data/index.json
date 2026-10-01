@@ -1,0 +1,163 @@
+{
+"generatedAt": "2026-10-01T00:00:00.000Z",
+"source": "fixture",
+"books": [
+{
+"id": 1,
+"title": "Dungeon Crawler Carl",
+"chapters": 47,
+"alternates": []
+},
+{
+"id": 2,
+"title": "Carl's Doomsday Scenario",
+"chapters": 25,
+"alternates": []
+},
+{
+"id": 3,
+"title": "The Dungeon Anarchist's Cookbook",
+"chapters": 34,
+"alternates": []
+},
+{
+"id": 4,
+"title": "The Gate of the Feral Gods",
+"chapters": 34,
+"alternates": []
+},
+{
+"id": 5,
+"title": "The Butcher's Masquerade",
+"chapters": 75,
+"alternates": [
+{
+"chapters": 77,
+"map": {
+"62": 61,
+"63": 62,
+"64": 64,
+"65": 64,
+"66": 64,
+"67": 65,
+"68": 66,
+"69": 67,
+"70": 68,
+"71": 69,
+"72": 70,
+"73": 71,
+"74": 72,
+"75": 73,
+"76": 74,
+"77": 75
+}
+}
+]
+},
+{
+"id": 6,
+"title": "The Eye of the Bedlam Bride",
+"chapters": 72,
+"alternates": []
+},
+{
+"id": 7,
+"title": "This Inevitable Ruin",
+"chapters": 87,
+"alternates": []
+},
+{
+"id": 8,
+"title": "A Parade of Horribles",
+"chapters": 98,
+"alternates": []
+}
+],
+"entries": [
+{
+"id": "carl",
+"kind": "character",
+"name": "Carl",
+"role": "Protagonist",
+"revealedAt": 1001,
+"aka": [
+{
+"name": "Crawler Carl",
+"key": 1001
+}
+],
+"taglines": [
+{
+"key": 1001,
+"book": 1,
+"chapter": 1,
+"text": "I'm Carl. I went out after the cat."
+}
+]
+},
+{
+"id": "princess-donut",
+"kind": "character",
+"name": "Princess Donut",
+"role": "Carl's cat",
+"revealedAt": 1001,
+"aka": [
+{
+"name": "Donut",
+"key": 1001
+}
+],
+"taglines": [
+{
+"key": 1001,
+"book": 1,
+"chapter": 1,
+"text": "A cat."
+},
+{
+"key": 1003,
+"book": 1,
+"chapter": 3,
+"text": "A talking cat."
+}
+]
+},
+{
+"id": "hamed",
+"kind": "character",
+"name": "The Night Wyrm",
+"role": "",
+"revealedAt": 3019,
+"aka": [
+{
+"name": "Hamed",
+"key": 6032
+}
+],
+"taglines": [
+{
+"key": 3019,
+"book": 3,
+"chapter": 19,
+"text": "A name on a ring."
+}
+]
+},
+{
+"id": "carlos",
+"kind": "character",
+"name": "Carlos",
+"role": "A neighbour",
+"revealedAt": 1001,
+"aka": [],
+"taglines": [
+{
+"key": 1001,
+"book": 1,
+"chapter": 1,
+"text": "A neighbour of Carl's."
+}
+]
+}
+]
+}
