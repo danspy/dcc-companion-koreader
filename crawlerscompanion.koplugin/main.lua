@@ -78,7 +78,7 @@ function Companion:selftest(probe)
     end
     if hits[1] then
         local file = self.store:entity(hits[1].id)
-        logger.info("crawlerscompanion: selftest text\n" .. gate.popup_text(hits[1], file, p.frontier, gate.LIMIT))
+        logger.info("crawlerscompanion: selftest recap\n" .. gate.recap_text(hits[1], file, p.frontier, position.previous_chapter(p)))
     end
 
     local result = { hits = #hits, buttons = "" }
@@ -244,7 +244,7 @@ function Companion:showEntry(entry, p)
     local file = self.store:entity(entry.id)
     UIManager:show(TextViewer:new{
         title = entry.name,
-        text = gate.popup_text(entry, file, p.frontier, gate.LIMIT),
+        text = gate.crawl_text(entry, file, p.frontier),
     })
 end
 

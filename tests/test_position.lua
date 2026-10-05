@@ -188,4 +188,11 @@ function S.a_stamp_reads_like_the_site()
   T.eq(position.stamp_key(1999), "Book 1 · end")
 end
 
+
+function S.previous_chapter_is_the_cut_the_plugin_reads_to()
+  T.eq(position.previous_chapter({ chapter = 6, frontier = 4006 }), 4005)
+  T.eq(position.previous_chapter({ chapter = 1, frontier = 4001 }), 4000, "chapter 1: nothing before it in this book")
+  T.eq(position.previous_chapter({ chapter = position.END_OF_BOOK, frontier = 4999 }), 4999, "a finished book is told by its paragraph")
+end
+
 return S

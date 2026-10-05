@@ -116,6 +116,13 @@ function M.frontier(book, chapter)
   return book * M.STRIDE + chapter
 end
 
+-- The cut the Recap screen lists this book's entries to: the chapter before the one the
+-- reader is on. A finished book is told by its paragraph, so there is no cut to make.
+function M.previous_chapter(p)
+  if p.chapter == M.END_OF_BOOK then return p.frontier end
+  return p.frontier - 1
+end
+
 local function place(book, chapter)
   return { book = book.id, chapter = chapter, frontier = M.frontier(book.id, chapter), title = book.title }
 end
