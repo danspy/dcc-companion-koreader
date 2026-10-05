@@ -14,6 +14,7 @@ local ButtonDialog = require("ui/widget/buttondialog")
 local Event = require("ui/event")
 local InfoMessage = require("ui/widget/infomessage")
 local InputDialog = require("ui/widget/inputdialog")
+local Menu = require("ui/widget/menu")
 local TextViewer = require("ui/widget/textviewer")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
@@ -218,7 +219,7 @@ function Companion:lookup(text)
         return
     end
     if #hits == 1 then
-        self:showEntry(hits[1], p)
+        self:showRecap(hits[1], p)
         return
     end
 
@@ -229,7 +230,7 @@ function Companion:lookup(text)
             text = e.role ~= "" and (e.name .. " — " .. e.role) or e.name,
             callback = function()
                 UIManager:close(dialog)
-                self:showEntry(e, p)
+                self:showRecap(e, p)
             end,
         } }
     end
@@ -240,12 +241,72 @@ function Companion:lookup(text)
     UIManager:show(dialog)
 end
 
-function Companion:showEntry(entry, p)
+-- The Recap: what a tap opens. Role, tagline, a paragraph per finished book, this book to
+-- the chapter before the one the reader is on, what is still sealed. One button on.
+function Companion:showRecap(entry, p)
     local file = self.store:entity(entry.id)
-    UIManager:show(TextViewer:new{
+    local viewer
+    viewer = TextViewer:new{
         title = entry.name,
+        text = gate.recap_text(entry, file, p.frontier, position.previous_chapter(p)),
+        buttons_table = { {
+            {
+                text = string.format(_("The whole crawl for %s so far"), entry.name),
+                callback = function() self:showCrawl(entry, p) end,
+            },
+            { text = _("Close"), id = "close", callback = function() UIManager:close(viewer) end },
+        } },
+    }
+    UIManager:show(viewer)
+end
+
+-- The whole crawl: the System's description, every reached beat in voice, the sealed line.
+-- Connections is disabled rather than missing when none are reached, so the row never shifts.
+function Companion:showCrawl(entry, p)
+    local file = self.store:entity(entry.id)
+    local rels = gate.relations_for(file, self.store:load_index(), p.frontier)
+    local viewer
+    viewer = TextViewer:new{
+        title = entry.name .. _(" · the whole crawl so far"),
         text = gate.crawl_text(entry, file, p.frontier),
-    })
+        buttons_table = { {
+            {
+                text = string.format(_("Connections · %d"), #rels),
+                enabled = #rels > 0,
+                callback = function() self:showConnections(entry, p, rels) end,
+            },
+            { text = _("Back"), id = "close", callback = function() UIManager:close(viewer) end },
+        } },
+    }
+    UIManager:show(viewer)
+end
+
+-- Connections: one row per relation reached, the other entry's name and the kind, the stamp
+-- at the right, the note under it. A row opens that entry's Recap; KOReader's Menu then
+-- closes itself (onMenuSelect runs close_callback after the row's callback), so the reader
+-- lands on the connection's Recap and Back from there returns to the whole crawl.
+function Companion:showConnections(entry, p, rels)
+    local items = {}
+    for _, r in ipairs(rels) do
+        local text = r.other.name .. " — " .. r.kind
+        if r.note ~= "" then text = text .. "\n" .. r.note end
+        items[#items + 1] = {
+            text = text,
+            mandatory = position.stamp_key(r.key),
+            callback = function() self:showRecap(r.other, p) end,
+        }
+    end
+    local menu
+    menu = Menu:new{
+        title = entry.name .. _(" · connections"),
+        item_table = items,
+        multilines_show_more_text = true,
+        items_per_page = 8,
+        is_popout = false,
+        is_borderless = true,
+        close_callback = function() UIManager:close(menu) end,
+    }
+    UIManager:show(menu)
 end
 
 -- Menu --------------------------------------------------------------------------------
