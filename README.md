@@ -28,9 +28,15 @@ Open a Dungeon Crawler Carl book. Long-press a word — *Donut*, *Mordecai*, *La
 tap **Crawler's Companion** in the dictionary popup that opens. Select two words for a longer
 name (*Princess Donut*, *Over City*); the button is in that selection menu too.
 
-You get the entry as it stands at the chapter you are on: its one-line summary, the System's
-own description where there is one, the latest dozen things that have happened to it, and a
-line saying how much is still sealed and when the next part opens.
+You get the **recap**: who or what this is in a line, then a short paragraph for each book you
+have finished, then this book so far — one line per thing that has happened, up to the chapter
+before the one you are on — and a line saying how much is still sealed and when the next part
+opens. Nothing from the chapter you are reading is told; it only says how many entries it holds.
+
+One button, **The whole crawl for Carl so far**, opens the full entry: the System's own
+description where there is one, every reached entry in the character's own voice with its
+chapter, and **Connections** — everyone and everything this entry is tied to that you have met,
+with the stamp of when. Tap a connection and you are reading that entry's recap.
 
 A name the book has not yet introduced and a word that is not a name get the same answer,
 `*** No record ***`. The plugin never confirms a name exists.
