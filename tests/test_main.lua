@@ -23,10 +23,12 @@ local function widget(kind)
 end
 
 local shown, closed = {}, {}
+local topmost -- what the fake UIManager says is on top, for the self-test
 local UIManager = {
   show = function(_, w) shown[#shown + 1] = w end,
   close = function(_, w) closed[#closed + 1] = w end,
-  scheduleIn = function() end,
+  scheduleIn = function(_, _, fn) fn() end, -- the stubs have no clock: run it now
+  getTopmostVisibleWidget = function() return topmost end,
 }
 
 local function stub(name, mod) package.preload[name] = function() return mod end end
@@ -41,16 +43,24 @@ stub("ui/widget/inputdialog", (function()
   return W
 end)())
 stub("ui/uimanager", UIManager)
+stub("ui/event", { new = function(_, name, ...) return { name = name, args = { ... } } end })
 stub("gettext", setmetatable({}, { __call = function(_, s) return s end }))
 stub("util", { cleanupSelectedText = function(t) return t end })
 stub("logger", { info = function() end, warn = function() end, err = function() end, dbg = function() end })
 
 local function fake_ui(opts)
   local hooks, settings = {}, {}
+  -- KOReader's ReaderDictionary: before v2026.07 it only fires DictButtonsReady at the
+  -- plugins; from v2026.07 it takes a button spec through addToDictButtons instead.
+  local dictionary = {}
+  if opts.dict_api then
+    dictionary.addToDictButtons = function(_, spec) hooks.dict = spec end
+  end
   local ui = {
     doc_props = { title = opts.title },
     menu = { registerToMainMenu = function(_, plugin) hooks.menu = plugin end },
     highlight = { addToHighlightDialog = function(_, id, fn) hooks.button = { id = id, fn = fn } end },
+    dictionary = dictionary,
     toc = {
       toc = opts.toc or {},
       fillToc = function() end,
@@ -62,6 +72,7 @@ local function fake_ui(opts)
       delSetting = function(_, k) settings[k] = nil end,
     },
     getCurrentPage = function() return 1 end,
+    handleEvent = function(_, ev) hooks.events = hooks.events or {}; hooks.events[#hooks.events + 1] = ev end,
   }
   return ui, hooks, settings
 end
@@ -90,7 +101,75 @@ local function last()
   return shown[#shown]
 end
 
+-- A DictQuickLookup as the plugin sees it: the word that was held, and a way to close it.
+local function popup_for(ui, word, is_wiki)
+  local p = { ui = ui, word = word, lookupword = word, is_wiki = is_wiki or false, closed = false }
+  function p:onClose() self.closed = true end
+  return p
+end
+
 local S = {}
+
+-- A long-press on a single word opens KOReader's dictionary popup, not the highlight
+-- menu, so the button has to be in that popup too or a reader never sees it.
+function S.on_an_older_koreader_the_button_rides_in_the_dictionary_popup()
+  local plugin = boot{ title = "Dungeon Crawler Carl", toc = TOC, index = 3 }
+  local popup = popup_for(plugin.ui, "Donut")
+  local buttons = { { { id = "close" } } }
+  plugin:onDictButtonsReady(popup, buttons)
+  T.eq(#buttons, 2, "one row added")
+  T.eq(buttons[1][1].id, "crawlers_companion")
+  T.eq(buttons[1][1].text, "Crawler's Companion")
+  T.eq(buttons[2][1].id, "close", "KOReader's own row is untouched")
+  buttons[1][1].callback()
+  T.ok(popup.closed, "the popup closes before the entry opens")
+  T.eq(last().__kind, "textviewer")
+  T.eq(last().title, "Princess Donut")
+end
+
+-- The self-test opens KOReader's own dictionary popup and logs the buttons it ended up with,
+-- so a device with no screen to look at can still say whether the button is there.
+function S.the_selftest_opens_a_real_lookup_and_logs_the_popups_buttons()
+  local plugin, hooks = boot{ title = "Dungeon Crawler Carl", toc = TOC, index = 3 }
+  topmost = { button_table = { button_by_id = { close = {}, crawlers_companion = {}, highlight = {} } } }
+  local logged = plugin:selftest("Donut")
+  T.eq(hooks.events[#hooks.events].name, "LookupWord")
+  T.eq(hooks.events[#hooks.events].args[1], "Donut")
+  T.eq(logged.buttons, "close crawlers_companion highlight", "sorted, so the log line is stable")
+  T.eq(logged.hits, 1, "the fixture knows one Donut")
+  topmost = nil
+  T.eq(plugin:selftest("Donut").buttons, "", "no popup on top, nothing claimed")
+end
+
+function S.the_dictionary_button_stays_out_of_wikipedia_and_other_books()
+  local plugin = boot{ title = "Dungeon Crawler Carl", toc = TOC, index = 3 }
+  local buttons = { { { id = "close" } } }
+  plugin:onDictButtonsReady(popup_for(plugin.ui, "Donut", true), buttons)
+  T.eq(#buttons, 1, "nothing added to a Wikipedia popup")
+  local other = boot{ title = "Fire & Blood", toc = TOC, index = 3 }
+  other:onDictButtonsReady(popup_for(other.ui, "Donut"), buttons)
+  T.eq(#buttons, 1, "nothing added on another book")
+end
+
+function S.on_a_newer_koreader_the_popup_button_is_registered_once()
+  local plugin, hooks = boot{ title = "Dungeon Crawler Carl", toc = TOC, index = 3, dict_api = true }
+  local spec = hooks.dict
+  T.ok(spec, "registered through addToDictButtons at init")
+  T.eq(spec.id, "crawlers_companion")
+  T.eq(spec.text, "Crawler's Companion")
+  T.ok(spec.show_func(popup_for(plugin.ui, "Donut")), "shown for a crawl book")
+  T.ok(not spec.show_func(popup_for(plugin.ui, "Donut", true)), "not on a Wikipedia popup")
+  local popup = popup_for(plugin.ui, "Donut")
+  spec.callback(popup)
+  T.ok(popup.closed)
+  T.eq(last().title, "Princess Donut")
+  -- The event does not fire on this version, but if it ever did, no second button.
+  local buttons = { { { id = "close" } } }
+  plugin:onDictButtonsReady(popup_for(plugin.ui, "Donut"), buttons)
+  T.eq(#buttons, 1, "the event adds nothing where the spec is registered")
+  local other, ohooks = boot{ title = "Fire & Blood", toc = TOC, index = 3, dict_api = true }
+  T.ok(not ohooks.dict.show_func(popup_for(other.ui, "Donut")), "not on another book")
+end
 
 function S.the_button_and_menu_are_registered_at_init()
   local plugin, hooks = boot{ title = "Dungeon Crawler Carl", toc = TOC, index = 3 }

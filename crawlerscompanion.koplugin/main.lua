@@ -11,6 +11,7 @@ and widgets.
 --]]--
 
 local ButtonDialog = require("ui/widget/buttondialog")
+local Event = require("ui/event")
 local InfoMessage = require("ui/widget/infomessage")
 local InputDialog = require("ui/widget/inputdialog")
 local TextViewer = require("ui/widget/textviewer")
@@ -26,6 +27,7 @@ local Store = require("cc_store")
 
 local SETTING = "crawlers_companion_position" -- per document, in its own KOReader settings
 local BUTTON_ID = "12_crawlers_companion"      -- sorts just before KOReader's own 12_search
+local DICT_BUTTON_ID = "crawlers_companion"    -- in the dictionary popup, where a held word lands
 
 local Companion = WidgetContainer:extend{
     name = "crawlerscompanion",
@@ -40,12 +42,15 @@ function Companion:init()
     if self.ui and self.ui.highlight then
         self:addToHighlightDialog()
     end
+    if self.ui and self.ui.dictionary and self.ui.dictionary.addToDictButtons then
+        self:addToDictButtons()
+    end
 end
 
 -- Once the document is open: say in the log where the plugin thinks the reader is, which
 -- is the one thing worth checking on a new device. With CRAWLERS_COMPANION_SELFTEST set to
--- a name, also run that lookup and log what the popup would say — the way to test the real
--- data path on a desktop build with no screen to look at.
+-- a name, also run the self-test — the way to test the real data path on a desktop build
+-- with no screen to look at.
 function Companion:onReaderReady()
     local p = self:currentPosition()
     if p then
@@ -55,17 +60,41 @@ function Companion:onReaderReady()
     end
     local probe = os.getenv("CRAWLERS_COMPANION_SELFTEST")
     if probe and probe ~= "" then
-        local index = self.store:load_index()
-        local hits = p and index and gate.match(probe, index.entries, p.frontier) or {}
-        logger.info("crawlerscompanion: selftest", probe, "hits", #hits)
-        for i, e in ipairs(hits) do
-            logger.info("crawlerscompanion: selftest hit", i, e.id, e.name)
-        end
-        if hits[1] then
-            local file = self.store:entity(hits[1].id)
-            logger.info("crawlerscompanion: selftest text\n" .. gate.popup_text(hits[1], file, p.frontier, gate.LIMIT))
-        end
+        UIManager:scheduleIn(1, function() self:selftest(probe) end)
     end
+end
+
+-- Log what the probe matches and what its entry would say; then hold the probe the way a
+-- reader does — open KOReader's own dictionary popup on it — and log the buttons that
+-- popup ended up with. The stubbed tests cannot see that last part, and it is the part
+-- that shipped wrong once: the button sat in a menu a single-word hold never opens.
+function Companion:selftest(probe)
+    local p = self:currentPosition()
+    local index = self.store:load_index()
+    local hits = p and index and gate.match(probe, index.entries, p.frontier) or {}
+    logger.info("crawlerscompanion: selftest", probe, "hits", #hits)
+    for i, e in ipairs(hits) do
+        logger.info("crawlerscompanion: selftest hit", i, e.id, e.name)
+    end
+    if hits[1] then
+        local file = self.store:entity(hits[1].id)
+        logger.info("crawlerscompanion: selftest text\n" .. gate.popup_text(hits[1], file, p.frontier, gate.LIMIT))
+    end
+
+    local result = { hits = #hits, buttons = "" }
+    self.ui:handleEvent(Event:new("LookupWord", probe))
+    UIManager:scheduleIn(2, function()
+        local top = UIManager:getTopmostVisibleWidget()
+        local by_id = top and top.button_table and top.button_table.button_by_id
+        local ids = {}
+        if by_id then
+            for id in pairs(by_id) do ids[#ids + 1] = id end
+        end
+        table.sort(ids)
+        result.buttons = table.concat(ids, " ")
+        logger.info("crawlerscompanion: selftest dict popup buttons:", result.buttons)
+    end)
+    return result
 end
 
 -- Where the reader is: an override they typed for this document, or the book and chapter
@@ -118,6 +147,52 @@ function Companion:addToHighlightDialog()
             end,
         }
     end)
+end
+
+-- A long-press on a single word does not open the highlight menu: by default KOReader
+-- sends it straight to the dictionary popup, which is where a reader holding "Donut"
+-- actually lands. So the button has to be in that popup as well, and KOReader has had two
+-- ways of putting it there. From v2026.07 ReaderDictionary takes a spec through
+-- addToDictButtons; before that (v2026.03 on a Kobo today) DictQuickLookup fires
+-- DictButtonsReady with its button rows for plugins to edit. Only one of the two exists
+-- on any given version, and the event handler steps aside where the spec is registered, so
+-- the button never appears twice.
+function Companion:dictPopupWord(dict_popup)
+    return dict_popup.word or dict_popup.lookupword
+end
+
+function Companion:showsInDictPopup(dict_popup)
+    if dict_popup.is_wiki or dict_popup.is_wiki_fullpage then return false end
+    return self:currentPosition() ~= nil
+end
+
+function Companion:lookupFromDictPopup(dict_popup)
+    local word = self:dictPopupWord(dict_popup)
+    dict_popup:onClose()
+    self:lookup(word)
+end
+
+function Companion:addToDictButtons()
+    self.ui.dictionary:addToDictButtons({
+        id = DICT_BUTTON_ID,
+        menu_text = _("Crawler's Companion"),
+        text = _("Crawler's Companion"),
+        insert_first = true,
+        font_bold = false,
+        show_func = function(dict_popup) return self:showsInDictPopup(dict_popup) end,
+        callback = function(dict_popup) self:lookupFromDictPopup(dict_popup) end,
+    })
+end
+
+function Companion:onDictButtonsReady(dict_popup, buttons)
+    if self.ui and self.ui.dictionary and self.ui.dictionary.addToDictButtons then return end
+    if not self:showsInDictPopup(dict_popup) then return end
+    table.insert(buttons, 1, { {
+        id = DICT_BUTTON_ID,
+        text = _("Crawler's Companion"),
+        font_bold = false,
+        callback = function() self:lookupFromDictPopup(dict_popup) end,
+    } })
 end
 
 function Companion:say(text)
