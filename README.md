@@ -25,8 +25,8 @@ difference: the site has to be told where you are, and your e-reader already kno
 ## Use
 
 Open a Dungeon Crawler Carl book. Long-press a word — *Donut*, *Mordecai*, *Larracos* — and
-tap **Crawler's Companion** in the menu that appears. Select two words for a longer name
-(*Princess Donut*, *Over City*).
+tap **Crawler's Companion** in the dictionary popup that opens. Select two words for a longer
+name (*Princess Donut*, *Over City*); the button is in that selection menu too.
 
 You get the entry as it stands at the chapter you are on: its one-line summary, the System's
 own description where there is one, the latest dozen things that have happened to it, and a
@@ -69,6 +69,11 @@ your device. Nothing shows it to you early; a text editor would.
 ```sh
 # unit tests, with KOReader's own LuaJIT (or any Lua 5.1+)
 luajit tests/run.lua
+
+# the real thing, on a desktop build: open a book, look up a name, and log which buttons
+# the dictionary popup ended up with — the one check the stubs cannot make
+CRAWLERS_COMPANION_SELFTEST=Donut KO_HOME=~/Library/Application\ Support/koreader \
+  ./luajit reader.lua path/to/book.epub   # from the KOReader directory
 
 # refresh the data from the site's repo (expects ../dcc-companion)
 scripts/sync-data.sh
