@@ -1,0 +1,1325 @@
+[
+ {
+  "label": "no position",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 0,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": null,
+   "sealed": {
+    "count": 4,
+    "nextKey": 1001
+   }
+  }
+ },
+ {
+  "label": "carl 1:1",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 1001,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 1,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "Pink Crocs",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 3,
+    "nextKey": 1002
+   }
+  }
+ },
+ {
+  "label": "carl 1:2 cut 1:1",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 1002,
+  "cut": 1001,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 1,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "Pink Crocs",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 1
+   },
+   "sealed": {
+    "count": 2,
+    "nextKey": 1999
+   }
+  }
+ },
+ {
+  "label": "carl 1:4 cut 1:3",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 1004,
+  "cut": 1003,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 1,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "Pink Crocs",
+      "draft": false
+     },
+     {
+      "chapter": 2,
+      "text": "Carl and the cat take the stairs.",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 2,
+    "nextKey": 1999
+   }
+  }
+ },
+ {
+  "label": "carl 1:5",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 1005,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 1,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "Pink Crocs",
+      "draft": false
+     },
+     {
+      "chapter": 2,
+      "text": "Carl and the cat take the stairs.",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 2,
+    "nextKey": 1999
+   }
+  }
+ },
+ {
+  "label": "carl 1:end",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 1999,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Carl goes down the stairs after the cat.",
+     "draft": false
+    }
+   ],
+   "current": null,
+   "sealed": {
+    "count": 1,
+    "nextKey": 7012
+   }
+  }
+ },
+ {
+  "label": "carl 2:1 cut 2:0",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 2001,
+  "cut": 2000,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Carl goes down the stairs after the cat.",
+     "draft": false
+    }
+   ],
+   "current": {
+    "book": 2,
+    "lines": [],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 1,
+    "nextKey": 7012
+   }
+  }
+ },
+ {
+  "label": "carl 7:12 cut 7:11",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 7012,
+  "cut": 7011,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Carl goes down the stairs after the cat.",
+     "draft": false
+    }
+   ],
+   "current": {
+    "book": 7,
+    "lines": [],
+    "earlier": 0,
+    "thisChapter": 1
+   },
+   "sealed": null
+  }
+ },
+ {
+  "label": "carl 7:12",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 7012,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Carl goes down the stairs after the cat.",
+     "draft": false
+    }
+   ],
+   "current": {
+    "book": 7,
+    "lines": [
+     {
+      "chapter": 12,
+      "text": "Larracos",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": null
+  }
+ },
+ {
+  "label": "carl 8:end",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Carl goes down the stairs after the cat."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "Pink Crocs"
+   },
+   {
+    "key": 1002,
+    "book": 1,
+    "chapter": 2,
+    "headline": "The stairs",
+    "gist": "Carl and the cat take the stairs."
+   },
+   {
+    "key": 1999,
+    "book": 1,
+    "chapter": 999,
+    "headline": "Footwear"
+   },
+   {
+    "key": 7012,
+    "book": 7,
+    "chapter": 12,
+    "headline": "Larracos"
+   }
+  ],
+  "frontier": 8999,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Carl goes down the stairs after the cat.",
+     "draft": false
+    }
+   ],
+   "current": null,
+   "sealed": null
+  }
+ },
+ {
+  "label": "steps 4:6 cut 4:5",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Book one."
+   },
+   {
+    "key": 3999,
+    "book": 3,
+    "text": "Book three."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1003,
+    "book": 1,
+    "chapter": 3,
+    "headline": "h1",
+    "gist": "Gist one."
+   },
+   {
+    "key": 3002,
+    "book": 3,
+    "chapter": 2,
+    "headline": "h3"
+   },
+   {
+    "key": 4001,
+    "book": 4,
+    "chapter": 1,
+    "headline": "h4a",
+    "gist": "Four a."
+   },
+   {
+    "key": 4002,
+    "book": 4,
+    "chapter": 2,
+    "headline": "h4b",
+    "gist": "Four b."
+   },
+   {
+    "key": 4005,
+    "book": 4,
+    "chapter": 5,
+    "headline": "h4e",
+    "gist": "Four e."
+   },
+   {
+    "key": 4006,
+    "book": 4,
+    "chapter": 6,
+    "headline": "h4f",
+    "gist": "Four f."
+   },
+   {
+    "key": 4009,
+    "book": 4,
+    "chapter": 9,
+    "headline": "h4i",
+    "gist": "Four i."
+   }
+  ],
+  "frontier": 4006,
+  "cut": 4005,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Book one.",
+     "draft": false
+    },
+    {
+     "book": 3,
+     "text": "Book three.",
+     "draft": true
+    }
+   ],
+   "current": {
+    "book": 4,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "Four a.",
+      "draft": false
+     },
+     {
+      "chapter": 2,
+      "text": "Four b.",
+      "draft": false
+     },
+     {
+      "chapter": 5,
+      "text": "Four e.",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 1
+   },
+   "sealed": {
+    "count": 1,
+    "nextKey": 4009
+   }
+  }
+ },
+ {
+  "label": "steps 4:6",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Book one."
+   },
+   {
+    "key": 3999,
+    "book": 3,
+    "text": "Book three."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1003,
+    "book": 1,
+    "chapter": 3,
+    "headline": "h1",
+    "gist": "Gist one."
+   },
+   {
+    "key": 3002,
+    "book": 3,
+    "chapter": 2,
+    "headline": "h3"
+   },
+   {
+    "key": 4001,
+    "book": 4,
+    "chapter": 1,
+    "headline": "h4a",
+    "gist": "Four a."
+   },
+   {
+    "key": 4002,
+    "book": 4,
+    "chapter": 2,
+    "headline": "h4b",
+    "gist": "Four b."
+   },
+   {
+    "key": 4005,
+    "book": 4,
+    "chapter": 5,
+    "headline": "h4e",
+    "gist": "Four e."
+   },
+   {
+    "key": 4006,
+    "book": 4,
+    "chapter": 6,
+    "headline": "h4f",
+    "gist": "Four f."
+   },
+   {
+    "key": 4009,
+    "book": 4,
+    "chapter": 9,
+    "headline": "h4i",
+    "gist": "Four i."
+   }
+  ],
+  "frontier": 4006,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Book one.",
+     "draft": false
+    },
+    {
+     "book": 3,
+     "text": "Book three.",
+     "draft": true
+    }
+   ],
+   "current": {
+    "book": 4,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "Four a.",
+      "draft": false
+     },
+     {
+      "chapter": 2,
+      "text": "Four b.",
+      "draft": false
+     },
+     {
+      "chapter": 5,
+      "text": "Four e.",
+      "draft": false
+     },
+     {
+      "chapter": 6,
+      "text": "Four f.",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 1,
+    "nextKey": 4009
+   }
+  }
+ },
+ {
+  "label": "steps 3:end",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Book one."
+   },
+   {
+    "key": 3999,
+    "book": 3,
+    "text": "Book three."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1003,
+    "book": 1,
+    "chapter": 3,
+    "headline": "h1",
+    "gist": "Gist one."
+   },
+   {
+    "key": 3002,
+    "book": 3,
+    "chapter": 2,
+    "headline": "h3"
+   },
+   {
+    "key": 4001,
+    "book": 4,
+    "chapter": 1,
+    "headline": "h4a",
+    "gist": "Four a."
+   },
+   {
+    "key": 4002,
+    "book": 4,
+    "chapter": 2,
+    "headline": "h4b",
+    "gist": "Four b."
+   },
+   {
+    "key": 4005,
+    "book": 4,
+    "chapter": 5,
+    "headline": "h4e",
+    "gist": "Four e."
+   },
+   {
+    "key": 4006,
+    "book": 4,
+    "chapter": 6,
+    "headline": "h4f",
+    "gist": "Four f."
+   },
+   {
+    "key": 4009,
+    "book": 4,
+    "chapter": 9,
+    "headline": "h4i",
+    "gist": "Four i."
+   }
+  ],
+  "frontier": 3999,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Book one.",
+     "draft": false
+    },
+    {
+     "book": 3,
+     "text": "Book three.",
+     "draft": true
+    }
+   ],
+   "current": null,
+   "sealed": {
+    "count": 5,
+    "nextKey": 4001
+   }
+  }
+ },
+ {
+  "label": "steps 1:5",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Book one."
+   },
+   {
+    "key": 3999,
+    "book": 3,
+    "text": "Book three."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1003,
+    "book": 1,
+    "chapter": 3,
+    "headline": "h1",
+    "gist": "Gist one."
+   },
+   {
+    "key": 3002,
+    "book": 3,
+    "chapter": 2,
+    "headline": "h3"
+   },
+   {
+    "key": 4001,
+    "book": 4,
+    "chapter": 1,
+    "headline": "h4a",
+    "gist": "Four a."
+   },
+   {
+    "key": 4002,
+    "book": 4,
+    "chapter": 2,
+    "headline": "h4b",
+    "gist": "Four b."
+   },
+   {
+    "key": 4005,
+    "book": 4,
+    "chapter": 5,
+    "headline": "h4e",
+    "gist": "Four e."
+   },
+   {
+    "key": 4006,
+    "book": 4,
+    "chapter": 6,
+    "headline": "h4f",
+    "gist": "Four f."
+   },
+   {
+    "key": 4009,
+    "book": 4,
+    "chapter": 9,
+    "headline": "h4i",
+    "gist": "Four i."
+   }
+  ],
+  "frontier": 1005,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 1,
+    "lines": [
+     {
+      "chapter": 3,
+      "text": "Gist one.",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 6,
+    "nextKey": 3002
+   }
+  }
+ },
+ {
+  "label": "steps 4:1 (no beat yet)",
+  "recap": [
+   {
+    "key": 1999,
+    "book": 1,
+    "text": "Book one."
+   },
+   {
+    "key": 3999,
+    "book": 3,
+    "text": "Book three."
+   }
+  ],
+  "beats": [
+   {
+    "key": 1003,
+    "book": 1,
+    "chapter": 3,
+    "headline": "h1",
+    "gist": "g"
+   },
+   {
+    "key": 4009,
+    "book": 4,
+    "chapter": 9,
+    "headline": "h4i",
+    "gist": "g"
+   }
+  ],
+  "frontier": 4001,
+  "cut": null,
+  "max": null,
+  "expected": {
+   "books": [
+    {
+     "book": 1,
+     "text": "Book one.",
+     "draft": false
+    },
+    {
+     "book": 3,
+     "text": "Book three.",
+     "draft": true
+    }
+   ],
+   "current": {
+    "book": 4,
+    "lines": [],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": {
+    "count": 1,
+    "nextKey": 4009
+   }
+  }
+ },
+ {
+  "label": "fold 12 to 8",
+  "recap": [],
+  "beats": [
+   {
+    "key": 5001,
+    "book": 5,
+    "chapter": 1,
+    "headline": "h0",
+    "gist": "g0"
+   },
+   {
+    "key": 5002,
+    "book": 5,
+    "chapter": 2,
+    "headline": "h1",
+    "gist": "g1"
+   },
+   {
+    "key": 5003,
+    "book": 5,
+    "chapter": 3,
+    "headline": "h2",
+    "gist": "g2"
+   },
+   {
+    "key": 5004,
+    "book": 5,
+    "chapter": 4,
+    "headline": "h3",
+    "gist": "g3"
+   },
+   {
+    "key": 5005,
+    "book": 5,
+    "chapter": 5,
+    "headline": "h4",
+    "gist": "g4"
+   },
+   {
+    "key": 5006,
+    "book": 5,
+    "chapter": 6,
+    "headline": "h5",
+    "gist": "g5"
+   },
+   {
+    "key": 5007,
+    "book": 5,
+    "chapter": 7,
+    "headline": "h6",
+    "gist": "g6"
+   },
+   {
+    "key": 5008,
+    "book": 5,
+    "chapter": 8,
+    "headline": "h7",
+    "gist": "g7"
+   },
+   {
+    "key": 5009,
+    "book": 5,
+    "chapter": 9,
+    "headline": "h8",
+    "gist": "g8"
+   },
+   {
+    "key": 5010,
+    "book": 5,
+    "chapter": 10,
+    "headline": "h9",
+    "gist": "g9"
+   },
+   {
+    "key": 5011,
+    "book": 5,
+    "chapter": 11,
+    "headline": "h10",
+    "gist": "g10"
+   },
+   {
+    "key": 5012,
+    "book": 5,
+    "chapter": 12,
+    "headline": "h11",
+    "gist": "g11"
+   }
+  ],
+  "frontier": 5020,
+  "cut": 5020,
+  "max": 8,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 5,
+    "lines": [
+     {
+      "chapter": 5,
+      "text": "g4",
+      "draft": false
+     },
+     {
+      "chapter": 6,
+      "text": "g5",
+      "draft": false
+     },
+     {
+      "chapter": 7,
+      "text": "g6",
+      "draft": false
+     },
+     {
+      "chapter": 8,
+      "text": "g7",
+      "draft": false
+     },
+     {
+      "chapter": 9,
+      "text": "g8",
+      "draft": false
+     },
+     {
+      "chapter": 10,
+      "text": "g9",
+      "draft": false
+     },
+     {
+      "chapter": 11,
+      "text": "g10",
+      "draft": false
+     },
+     {
+      "chapter": 12,
+      "text": "g11",
+      "draft": false
+     }
+    ],
+    "earlier": 4,
+    "thisChapter": 0
+   },
+   "sealed": null
+  }
+ },
+ {
+  "label": "fold 12 to 3",
+  "recap": [],
+  "beats": [
+   {
+    "key": 5001,
+    "book": 5,
+    "chapter": 1,
+    "headline": "h0",
+    "gist": "g0"
+   },
+   {
+    "key": 5002,
+    "book": 5,
+    "chapter": 2,
+    "headline": "h1",
+    "gist": "g1"
+   },
+   {
+    "key": 5003,
+    "book": 5,
+    "chapter": 3,
+    "headline": "h2",
+    "gist": "g2"
+   },
+   {
+    "key": 5004,
+    "book": 5,
+    "chapter": 4,
+    "headline": "h3",
+    "gist": "g3"
+   },
+   {
+    "key": 5005,
+    "book": 5,
+    "chapter": 5,
+    "headline": "h4",
+    "gist": "g4"
+   },
+   {
+    "key": 5006,
+    "book": 5,
+    "chapter": 6,
+    "headline": "h5",
+    "gist": "g5"
+   },
+   {
+    "key": 5007,
+    "book": 5,
+    "chapter": 7,
+    "headline": "h6",
+    "gist": "g6"
+   },
+   {
+    "key": 5008,
+    "book": 5,
+    "chapter": 8,
+    "headline": "h7",
+    "gist": "g7"
+   },
+   {
+    "key": 5009,
+    "book": 5,
+    "chapter": 9,
+    "headline": "h8",
+    "gist": "g8"
+   },
+   {
+    "key": 5010,
+    "book": 5,
+    "chapter": 10,
+    "headline": "h9",
+    "gist": "g9"
+   },
+   {
+    "key": 5011,
+    "book": 5,
+    "chapter": 11,
+    "headline": "h10",
+    "gist": "g10"
+   },
+   {
+    "key": 5012,
+    "book": 5,
+    "chapter": 12,
+    "headline": "h11",
+    "gist": "g11"
+   }
+  ],
+  "frontier": 5020,
+  "cut": 5020,
+  "max": 3,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 5,
+    "lines": [
+     {
+      "chapter": 10,
+      "text": "g9",
+      "draft": false
+     },
+     {
+      "chapter": 11,
+      "text": "g10",
+      "draft": false
+     },
+     {
+      "chapter": 12,
+      "text": "g11",
+      "draft": false
+     }
+    ],
+    "earlier": 9,
+    "thisChapter": 0
+   },
+   "sealed": null
+  }
+ },
+ {
+  "label": "no recap field",
+  "recap": [],
+  "beats": [
+   {
+    "key": 1001,
+    "book": 1,
+    "chapter": 1,
+    "headline": "x"
+   }
+  ],
+  "frontier": 1005,
+  "cut": 1004,
+  "max": null,
+  "expected": {
+   "books": [],
+   "current": {
+    "book": 1,
+    "lines": [
+     {
+      "chapter": 1,
+      "text": "x",
+      "draft": false
+     }
+    ],
+    "earlier": 0,
+    "thisChapter": 0
+   },
+   "sealed": null
+  }
+ }
+]

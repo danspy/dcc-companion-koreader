@@ -245,4 +245,45 @@ function S.crawl_text_is_every_reached_beat()
   T.lacks(early, "Footwear")
 end
 
+
+-- story_so_far is a copy of the site's src/lib/story.ts. The site writes what its own copy
+-- answers at a set of positions (scripts/story-fixtures.mjs, synced by scripts/sync-data.sh);
+-- this replays every case through the Lua copy, so the two cannot drift unnoticed.
+function S.story_so_far_agrees_with_the_sites_copy_on_every_fixture()
+  local json = require("cc_json")
+  local root = arg[0]:match("^(.*)/tests/run%.lua$") or "."
+  local f = assert(io.open(root .. "/tests/fixtures/story-fixtures.json", "rb"), "run scripts/sync-data.sh first")
+  local cases = json.decode(f:read("*a"))
+  f:close()
+  T.ok(#cases >= 10, "a fixture with cases in it")
+  for _, c in ipairs(cases) do
+    local got = gate.story_so_far({ recap = c.recap, beats = c.beats }, c.frontier, c.cut, c.max)
+    local want = c.expected
+    T.eq(#got.books, #want.books, c.label .. ": books")
+    for i, b in ipairs(want.books) do
+      T.eq(got.books[i].book, b.book, c.label .. ": book " .. i)
+      T.eq(got.books[i].text, b.text, c.label .. ": text " .. i)
+    end
+    if want.current == json.null or want.current == nil then
+      T.eq(got.current, nil, c.label .. ": no current")
+    else
+      T.ok(got.current, c.label .. ": current present")
+      T.eq(got.current.book, want.current.book, c.label .. ": current book")
+      T.eq(#got.current.lines, #want.current.lines, c.label .. ": lines")
+      for i, l in ipairs(want.current.lines) do
+        T.eq(got.current.lines[i].text, l.text, c.label .. ": line " .. i)
+        T.eq(got.current.lines[i].chapter, l.chapter, c.label .. ": line chapter " .. i)
+      end
+      T.eq(got.current.earlier, want.current.earlier, c.label .. ": earlier")
+      T.eq(got.current.this_chapter, want.current.thisChapter, c.label .. ": this chapter")
+    end
+    if want.sealed == json.null or want.sealed == nil then
+      T.eq(got.sealed, nil, c.label .. ": no sealed")
+    else
+      T.eq(got.sealed.count, want.sealed.count, c.label .. ": sealed count")
+      T.eq(got.sealed.next_key, want.sealed.nextKey, c.label .. ": sealed next")
+    end
+  end
+end
+
 return S

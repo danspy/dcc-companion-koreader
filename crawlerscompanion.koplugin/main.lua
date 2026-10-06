@@ -281,15 +281,17 @@ function Companion:showCrawl(entry, p)
     UIManager:show(viewer)
 end
 
--- Connections: one row per relation reached, the other entry's name and the kind, the stamp
--- at the right, the note under it. A row opens that entry's Recap; KOReader's Menu then
--- closes itself (onMenuSelect runs close_callback after the row's callback), so the reader
--- lands on the connection's Recap and Back from there returns to the whole crawl.
+-- Connections: one row per relation reached — the other entry's name, the kind, then the
+-- note after a separator, the stamp at the right. One line: KOReader's MenuItem flattens a
+-- newline to a space (menu.lua), so a "second line" would only be a run-on. A row opens that
+-- entry's Recap; the Menu then closes itself (onMenuSelect runs close_callback after the
+-- row's callback), so the reader lands on the connection's Recap and Back from there returns
+-- to the whole crawl.
 function Companion:showConnections(entry, p, rels)
     local items = {}
     for _, r in ipairs(rels) do
         local text = r.other.name .. " — " .. r.kind
-        if r.note ~= "" then text = text .. "\n" .. r.note end
+        if r.note ~= "" then text = text .. " · " .. r.note end
         items[#items + 1] = {
             text = text,
             mandatory = position.stamp_key(r.key),
@@ -300,7 +302,7 @@ function Companion:showConnections(entry, p, rels)
     menu = Menu:new{
         title = entry.name .. _(" · connections"),
         item_table = items,
-        multilines_show_more_text = true,
+        multilines_show_more_text = true, -- a long note wraps rather than truncates
         items_per_page = 8,
         is_popout = false,
         is_borderless = true,

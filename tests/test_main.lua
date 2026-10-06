@@ -36,7 +36,17 @@ stub("ui/widget/container/widgetcontainer", widget("container"))
 stub("ui/widget/textviewer", widget("textviewer"))
 stub("ui/widget/infomessage", widget("infomessage"))
 stub("ui/widget/buttondialog", widget("buttondialog"))
-stub("ui/widget/menu", widget("menu"))
+stub("ui/widget/menu", (function()
+  -- KOReader's MenuItem flattens a newline in an item's text to a space (menu.lua:211), so a
+  -- second line asked for with "\n" is a run-on line on the device. The stub does the same.
+  local W = widget("menu")
+  local new = W.new
+  function W:new(o)
+    for _, item in ipairs(o.item_table or {}) do item.text = item.text:gsub("\n", " ") end
+    return new(self, o)
+  end
+  return W
+end)())
 stub("ui/widget/inputdialog", (function()
   local W = widget("inputdialog")
   function W:getInputText() return self.input end
@@ -329,8 +339,7 @@ function S.a_connection_row_opens_the_other_entrys_recap()
   T.eq(menu.__kind, "menu")
   T.eq(menu.title, "Princess Donut · connections")
   T.eq(#menu.item_table, 1)
-  T.contains(menu.item_table[1].text, "Carl — partner")
-  T.contains(menu.item_table[1].text, "Stuck together.")
+  T.eq(menu.item_table[1].text, "Carl — partner · Stuck together.", "one line, with a separator the widget keeps")
   T.eq(menu.item_table[1].mandatory, "Book 1 · Ch 1")
   menu.item_table[1].callback()
   T.eq(last().__kind, "textviewer")
