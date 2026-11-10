@@ -4,7 +4,7 @@
 Companion**, and get the entry: who or what it is, and what has happened so far — sealed past
 the chapter the book is open at.
 
-It is the [Crawler's Companion](https://dcc.dev.innovativstud.io) site, offline, with one
+It is the [Crawler's Companion](https://crawlers-companion.info) site, offline, with one
 difference: the site has to be told where you are, and your e-reader already knows.
 
 ## Install
