@@ -5,7 +5,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -53,7 +54,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -112,7 +114,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -171,7 +174,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -235,7 +239,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -299,7 +304,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -353,7 +359,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -412,7 +419,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -468,7 +476,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -530,7 +539,8 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Carl goes down the stairs after the cat."
+    "text": "Carl goes down the stairs after the cat.",
+    "draft": false
    }
   ],
   "beats": [
@@ -581,12 +591,14 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Book one."
+    "text": "Book one.",
+    "draft": false
    },
    {
     "key": 3999,
     "book": 3,
-    "text": "Book three."
+    "text": "Book three.",
+    "draft": true
    }
   ],
   "beats": [
@@ -622,7 +634,8 @@
     "book": 4,
     "chapter": 5,
     "headline": "h4e",
-    "gist": "Four e."
+    "gist": "Four e.",
+    "gistDraft": true
    },
    {
     "key": 4006,
@@ -671,7 +684,7 @@
      {
       "chapter": 5,
       "text": "Four e.",
-      "draft": false
+      "draft": true
      }
     ],
     "earlier": 0,
@@ -689,12 +702,14 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Book one."
+    "text": "Book one.",
+    "draft": false
    },
    {
     "key": 3999,
     "book": 3,
-    "text": "Book three."
+    "text": "Book three.",
+    "draft": true
    }
   ],
   "beats": [
@@ -730,7 +745,8 @@
     "book": 4,
     "chapter": 5,
     "headline": "h4e",
-    "gist": "Four e."
+    "gist": "Four e.",
+    "gistDraft": true
    },
    {
     "key": 4006,
@@ -779,7 +795,7 @@
      {
       "chapter": 5,
       "text": "Four e.",
-      "draft": false
+      "draft": true
      },
      {
       "chapter": 6,
@@ -802,12 +818,14 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Book one."
+    "text": "Book one.",
+    "draft": false
    },
    {
     "key": 3999,
     "book": 3,
-    "text": "Book three."
+    "text": "Book three.",
+    "draft": true
    }
   ],
   "beats": [
@@ -843,7 +861,8 @@
     "book": 4,
     "chapter": 5,
     "headline": "h4e",
-    "gist": "Four e."
+    "gist": "Four e.",
+    "gistDraft": true
    },
    {
     "key": 4006,
@@ -889,12 +908,14 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Book one."
+    "text": "Book one.",
+    "draft": false
    },
    {
     "key": 3999,
     "book": 3,
-    "text": "Book three."
+    "text": "Book three.",
+    "draft": true
    }
   ],
   "beats": [
@@ -930,7 +951,8 @@
     "book": 4,
     "chapter": 5,
     "headline": "h4e",
-    "gist": "Four e."
+    "gist": "Four e.",
+    "gistDraft": true
    },
    {
     "key": 4006,
@@ -976,12 +998,14 @@
    {
     "key": 1999,
     "book": 1,
-    "text": "Book one."
+    "text": "Book one.",
+    "draft": false
    },
    {
     "key": 3999,
     "book": 3,
-    "text": "Book three."
+    "text": "Book three.",
+    "draft": true
    }
   ],
   "beats": [
